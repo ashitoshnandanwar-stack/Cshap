@@ -3,3 +3,14 @@ In software development projects, the term state is used to describe the conditi
 As your code executes line by line, values are stored in variables. At any moment during execution, the current state of the application is the collection of all values stored in memory.
 Some methods don't rely on the current state of the application to work properly. 
 In other words, stateless methods are implemented so that they can work without referencing or changing any values already stored in memory. Stateless methods are also known as static methods.
+Other methods, however, must have access to the state of the application to work properly. 
+
+In other words, stateful methods are built in such a way that they rely on values stored in memory by previous lines of code that have already been executed.
+Or they modify the state of the application by updating values or storing new values in memory. They're also known as instance methods.
+Stateful (instance) methods keep track of their state in fields, which are variables defined on the class. Each new instance of the class gets its own copy of those fields in which to store state.
+
+To call methods of a class in the .NET Class Library, you use the format ClassName.MethodName(), where the . symbol is the member access operator to access a method defined on the class, and the () symbols are the method invocation operators.
+When calling a stateless method, you don't need to create a new instance of its class first.
+When calling a stateful method, you need to create an instance of the class, and access the method on the object.
+Use the new operator to create a new instance of a class.
+An instance of a class is called as an object.
