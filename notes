@@ -14,3 +14,14 @@ When calling a stateless method, you don't need to create a new instance of its 
 When calling a stateful method, you need to create an instance of the class, and access the method on the object.
 Use the new operator to create a new instance of a class.
 An instance of a class is called as an object.
+
+# Array
+An array is a special type of variable that can hold multiple values of the same data type.
+To declare the array and initialize values in a single statement, enter the following code:
+c#
+string[] fraudulentOrderIDs = [ "A123", "B456", "C789" ];
+This example uses the Collection expression syntax, which was introduced in C# 12 and is supported in .NET 10.
+You may also see an older syntax used to initialize an array.
+C#
+string[] fraudulentOrderIDs = { "A123", "B456", "C789" };
+Notice that this older syntax uses curly braces {} to enclose the values of the array. Both syntaxes are valid.
