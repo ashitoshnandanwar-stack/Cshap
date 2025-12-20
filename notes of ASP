@@ -99,3 +99,44 @@ Json()
 RedirectToAction()
 NotFound()
 
+A web application is a software program that runs on a web server and is accessed through a web browser using the internet. 
+You don’t need to install it on your computer—just open a browser and use it.
+ASP stands for Active Server Pages.
+It is a server-side web technology by Microsoft used to create dynamic web applications.
+Today, ASP is mainly used as ASP.NET and ASP.NET Core.
+
+ASP - uses VB script language
+ASP.net - use language C#
+php - use language php script
+jsp and servlet - use language java
+
+
+for ASP.net
+- html
+- css-
+- js 
+- ASP.net with c#
+- web server(IIS - Internet Information Services) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
