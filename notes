@@ -68,14 +68,24 @@ ulong  : 0 to 18446744073709551615
 
 Precision is the number of value places stored after the decimal point.
 
-Because floating-point types can hold large numbers with precision, their values can be represented using "E notation", which is a form of scientific notation that means "times 10 raised to the power of." So, a value like 5E+2 would be the value 500 because it's the equivalent of 5 * 10^2, or 5 x 102.
+Because floating-point types can hold large numbers with precision, their values can be represented using "E notation",
+which is a form of scientific notation that means "times 10 raised to the power of." 
+So, a value like 5E+2 would be the value 500 because it's the equivalent of 5 * 10^2, or 5 x 102.
 
 How reference types are different from value types
-A value type variable stores its values directly in an area of storage called the stack. The stack is memory allocated to the code that is currently running on the CPU (also known as the stack frame, or activation frame). When the stack frame has finished executing, the values in the stack are removed.
+A value type variable stores its values directly in an area of storage called the stack. 
+The stack is memory allocated to the code that is currently running on the CPU (also known as the stack frame, or activation frame). 
+When the stack frame has finished executing, the values in the stack are removed.
 
-A reference type variable stores its values in a separate memory region called the heap. The heap is a memory area that is shared across many applications running on the operating system at the same time. The .NET Runtime communicates with the operating system to determine what memory addresses are available, and requests an address where it can store the value. The .NET Runtime stores the value, and then returns the memory address to the variable. When your code uses the variable, the .NET Runtime seamlessly looks up the address stored in the variable, and retrieves the value that's stored there.
+A reference type variable stores its values in a separate memory region called the heap. 
+The heap is a memory area that is shared across many applications running on the operating system at the same time. 
+The .NET Runtime communicates with the operating system to determine what memory addresses are available, and requests an address where it can store the value. 
+The .NET Runtime stores the value, and then returns the memory address to the variable. 
+When your code uses the variable, the .NET Runtime seamlessly looks up the address stored in the variable, and retrieves the value that's stored there.
 
-Value types can hold smaller values and are stored in the stack. Reference types can hold large values, and a new instance of a reference type is created using the new operator. Reference type variables hold a reference (the memory address) to the actual value stored in the heap.
+Value types can hold smaller values and are stored in the stack. 
+Reference types can hold large values, and a new instance of a reference type is created using the new operator.
+Reference type variables hold a reference (the memory address) to the actual value stored in the heap.
 Reference types include arrays, strings, and classes.
 
 Use the Clear() method to empty the values out of elements in the array.
@@ -116,3 +126,11 @@ Methods that compare two strings or facilitate comparison (Trim(), TrimStart(), 
 Methods that help you determine what's inside of a string, or even retrieve just a part of the string (Contains(), StartsWith(), EndsWith(), Substring())
 Methods that change the content of the string by replacing, inserting, or removing parts (Replace(), Insert(), Remove())
 Methods that turn a string into an array of strings or characters (Split(), ToCharArray())
+
+The Substring() method needs the starting position and the number of characters, or length, to retrieve. 
+So, you calculate the length in a temporary variable called length, and pass it with the openingPosition value to retrieve the string inside of the parenthesis.
+
+
+The result is close, however the output includes the opening parenthesis. 
+In this exercise, the inclusion of the parenthesis isn't desired. 
+To remove the parenthesis from output, you have to update the code to skip the index of the parenthesis itself
