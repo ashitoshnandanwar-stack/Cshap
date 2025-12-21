@@ -25,3 +25,9 @@ You may also see an older syntax used to initialize an array.
 C#
 string[] fraudulentOrderIDs = { "A123", "B456", "C789" };
 Notice that this older syntax uses curly braces {} to enclose the values of the array. Both syntaxes are valid.
+
+int value = (int)1.5m; // casting truncates
+Console.WriteLine(value);
+
+int value2 = Convert.ToInt32(1.5m); // converting rounds up
+Console.WriteLine(value2);
