@@ -140,3 +140,5 @@ Avoid hardcoded magic values. Instead, define a const variable. A constant varia
 The result is close, however the output includes the opening parenthesis. 
 In this exercise, the inclusion of the parenthesis isn't desired. 
 To remove the parenthesis from output, you have to update the code to skip the index of the parenthesis itself
+
+The term 'parameter' refers to the variable in the method signature. The 'argument' is the value passed when the method called.
