@@ -142,3 +142,16 @@ In this exercise, the inclusion of the parenthesis isn't desired.
 To remove the parenthesis from output, you have to update the code to skip the index of the parenthesis itself
 
 The term 'parameter' refers to the variable in the method signature. The 'argument' is the value passed when the method called.
+Software testing and developer responsibilities
+The software development process can involve a lot of testing. In fact, software testing has its own specialized discipline, and software testers play an important role in the development of large applications. There are even approaches to the software development process that are based on testing, such as test-driven development.
+
+Software testing categories can be organized under the types of testing, the approaches to testing, or a combination of both. One way to categorize the types of testing is to split testing into Functional and Nonfunctional testing. The functional and nonfunctional categories each include subcategories of testing. For example, functional and nonfunctional testing could be divided into the following subcategories:
+
+Functional testing - Unit testing - Integration testing - System testing - Acceptance testing
+Nonfunctional testing - Security testing - Performance testing - Usability testing - Compatibility testing.
+
+A debugger is a software tool used to observe and control the execution flow of your program with an analytical approach. 
+Debuggers help you isolate the cause of a bug and help you resolve it.
+A debugger connects to your code using one of two approaches:
+By hosting your program in its own execution process.
+By running as a separate process that's attached to your running program.
