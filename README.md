@@ -2215,4 +2215,6 @@ LINQ to Objects → in-memory collections
 Deferred execution → executed on iteration
 LINQ methods → Where, Select, OrderBy
 PLINQ → parallel execution
+Partial classes → compiled into one single class
+Partial method not implemented then ignored it at compile time.
 ```
