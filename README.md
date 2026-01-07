@@ -427,6 +427,70 @@ Student s = new Student
 
 🔹 What is Destructor?
 - A destructor:
--- Is used to release unmanaged resources
--- Is called automatically by Garbage Collector
--- Is executed before object is destroyed
+- Is used to release unmanaged resources
+- Is called automatically by Garbage Collector
+- Is executed before object is destroyed
+
+```
+Syntax
+class Test
+{
+    ~Test()
+    {
+        Console.WriteLine("Destructor called");
+    }
+}
+
+🔑 Rules (MCQ Favorite)
+Destructor name is ~ClassName
+Cannot have parameters
+Cannot be overloaded
+Called non-deterministically
+
+```
+<hr>
+
+## 🔷 IDisposable INTERFACE
+
+```
+🔹 Why IDisposable?
+Garbage Collector:
+Manages managed memory
+Does NOT immediately free unmanaged resources
+👉 IDisposable is used to manually release resources like:
+File handles
+Database connections
+Network sockets
+```
+```
+🔹 IDisposable Interface
+public interface IDisposable
+{
+    void Dispose();
+}
+
+🔹 Implementation Example
+class FileHandler : IDisposable
+{
+    public void Dispose()
+    {
+        Console.WriteLine("Resources released");
+    }
+}
+
+🔹 Using using Statement
+using (FileHandler fh = new FileHandler())
+{
+    // use resource
+}
+
+
+✔ Dispose() is called automatically
+✔ Ensures deterministic cleanup
+```
+| Destructor        | IDisposable          |
+| ----------------- | -------------------- |
+| Non-deterministic | Deterministic        |
+| GC dependent      | Developer controlled |
+| Slow              | Fast                 |
+| Backup cleanup    | Primary cleanup      |
