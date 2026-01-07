@@ -392,3 +392,41 @@ Constructor has no return type
 Can be overloaded
 Cannot be virtual or abstract
 ```
+<hr>
+
+## 🔷 OBJECT INITIALIZER
+
+🔹What is Object Initializer?
+- Object initializer allows setting public properties or fields at the time of object creation without calling constructor explicitly.
+```
+Eg.
+class Student
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+
+Student s = new Student
+{
+    Id = 101,
+    Name = "Amit"
+};
+✔ Constructor is still called
+✔ Improves readability
+✔ Uses properties, not private fields
+```
+| Constructor                | Object Initializer         |
+| -------------------------- | -------------------------- |
+| Initializes via parameters | Initializes via properties |
+| Logic allowed              | Only assignments           |
+| Mandatory values           | Optional                   |
+
+<hr>
+
+## 🔷 DESTRUCTORS
+
+🔹 What is Destructor?
+- A destructor:
+-- Is used to release unmanaged resources
+-- Is called automatically by Garbage Collector
+-- Is executed before object is destroyed
