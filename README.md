@@ -675,6 +675,7 @@ Clear scope
 
 <hr>
 ## 🔷 INHERITANCE IN C#
+
 ```
 🔹 What is Inheritance?
 Inheritance allows a class (derived/child) to acquire the properties and methods of another class (base/parent).
@@ -687,7 +688,7 @@ class Derived : Base { }
 Code reusability
 Extensibility
 Supports runtime polymorphism
-```
+
 
 | Access Specifier     | Same Class | Derived Class   | Outside Class      |
 | -------------------- | ---------- | -------------   | -----------------  |
@@ -696,3 +697,4 @@ Supports runtime polymorphism
 | `internal`           | ✔          | ✔              | ✔ (same assembly)  |
 | `private`            | ✔          | ❌             | ❌                 |
 | `protected internal` | ✔          | ✔              | ✔                  |
+```
