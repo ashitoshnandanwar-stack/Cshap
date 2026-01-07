@@ -2698,4 +2698,158 @@ With Interlocked:
 
 ```
 
+### 🔷 WORKING WITH TASKS
+```
+🔹 What is a Task?
+A Task represents an asynchronous operation that runs in the background and may return a result.
+Task = modern, easy way to do multithreading / async work in C#
+A Task represents an asynchronous operation.
+
+🔹 Why Task is Used?
+Old way (Thread, ThreadPool) problems:
+❌ Hard to manage
+❌ No return value
+❌ Manual synchronization
+
+Task advantages:
+✔ Easy to use
+✔ Supports return values
+✔ Better performance
+✔ Built-in exception handling
+
+🔹 Real-Time Example (Very Easy)
+🌐 Web Application
+User clicks Login
+Server:
+Checks database
+Validates user
+This work runs in background using Task
+UI remains responsive
+
+🔹 Creating a Task (Basic)
+✅ Using Task.Run
+using System;
+using System.Threading.Tasks;
+
+class Program
+{
+    static void Main()
+    {
+        Task task = Task.Run(() =>
+        {
+            Console.WriteLine("Task is running");
+        });
+
+        task.Wait();   // wait till task completes
+        Console.WriteLine("Main finished");
+    }
+}
+
+🔹 Task with Return Value (Task<T>)
+Task<int> task = Task.Run(() =>
+{
+    return 10 + 20;
+});
+
+int result = task.Result;
+Console.WriteLine(result);   // 30
+
+📌 Task<T> → returns a value
+
+Introduced in TPL
+Uses thread pool internally
+
+🔷 ASYNC & AWAIT
+
+async → marks a method as asynchronous
+await → pauses the method without blocking the thread until the Task completes
+
+📌 In simple words:
+async/await lets long work run in background while keeping the program responsive.
+
+Pauses execution without blocking thread
+Waits for task completion
+
+Example
+async Task<int> CalculateAsync()
+{
+    await Task.Delay(1000);
+    return 100;
+}
+
+async Task Test()
+{
+    int result = await CalculateAsync();
+    Console.WriteLine(result);
+}
+
+🔑 Exam Rules
+await works with Task / Task<T>
+Improves responsiveness
+Uses non-blocking calls 
+```
+
+###  🔷 Task Parallel Library(TPL)
+```
+TPL (Task Parallel Library) is a high-level library in .NET used to write parallel and asynchronous code easily.
+📌 It is built on top of ThreadPool and mainly uses Task.
+TPL helps you run multiple tasks in parallel without managing threads manually.
+
+Why TPL is Needed?
+Old threading (Thread) problems:
+❌ Manual thread creation
+❌ Hard synchronization
+❌ Poor scalability
+
+TPL advantages:
+✔ Automatic thread management
+✔ Better performance
+✔ Cleaner, shorter code
+✔ Built-in exception handling
+
+🔹 Main Components of TPL (Very Important)
+
+1️⃣ Task / Task<T>
+2️⃣ Parallel class (Parallel.For, Parallel.ForEach)
+3️⃣ TaskScheduler
+
+🔹 1️⃣ Task (Core of TPL)
+using System;
+using System.Threading.Tasks;
+class Program
+{
+    static void Main()
+    {
+        Task t = Task.Run(() =>
+        {
+            Console.WriteLine("Task running");
+        });
+
+        t.Wait();
+    }
+}
+
+✔ Runs on ThreadPool
+✔ Managed automatically
+
+🔹 2️⃣ Parallel Class (Data Parallelism)
+🔸 Parallel.For
+using System;
+using System.Threading.Tasks;
+
+class Program
+{
+    static void Main()
+    {
+        Parallel.For(1, 6, i =>
+        {
+            Console.WriteLine(i);
+        });
+    }
+}
+
+📌 Loop iterations run in parallel
+
+TPL (Task Parallel Library) is a .NET library that simplifies parallel programming using tasks and automatic thread management.
+```
 <hr>
