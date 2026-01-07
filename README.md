@@ -307,7 +307,7 @@ Console.WriteLine(s.Marks);  // ✅ Access through getter
 ```
 
 ---
-
+```
 ## Simple Visual Understanding 🎯
 
 ┌─────────────────────────────────────┐
@@ -326,3 +326,4 @@ Console.WriteLine(s.Marks);  // ✅ Access through getter
         │
     Outside world can only use these methods
     Cannot directly touch the marks variable
+```
