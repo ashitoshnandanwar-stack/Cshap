@@ -2029,3 +2029,190 @@ throw → raise exception
 Events → notification mechanism
 Events based on delegates
 ```
+
+<hr>
+
+## 🔷 ANONYMOUS TYPES
+```
+Anonymous types allow you to create objects without defining a class.
+They are immutable and mainly used in LINQ queries.
+
+Example
+var student = new { Id = 1, Name = "Amit", Marks = 85 };
+Console.WriteLine(student.Name);
+
+🔑 Exam Rules
+Created using new { }
+Properties are read-only
+Mostly used with LINQ
+Type is inferred using var
+```
+
+### 🔷 EXTENSION METHODS
+```
+🔹 What is an Extension Method?
+An extension method allows you to add new methods to an existing type without modifying its source code.
+
+🔹 Rules
+Must be static
+Defined in a static class
+First parameter uses this keyword
+
+Example
+static class MyExtensions
+{
+    public static bool IsEven(this int x)
+    {
+        return x % 2 == 0;
+    }
+}
+
+
+Usage:
+
+int n = 10;
+Console.WriteLine(n.IsEven()); // true
+
+🔑 Exam Trap
+Extension methods are compile-time, not runtime polymorphism.
+```
+
+### 🔷 PARTIAL CLASSES
+```
+🔹 What is a Partial Class?
+A partial class allows a class to be split into multiple files.
+
+Example
+partial class Student
+{
+    public void Show() { }
+}
+
+partial class Student
+{
+    public void Display() { }
+}
+
+🔑 Exam Points
+All parts must use partial
+Compiled into one single class
+Useful in large projects / auto-generated code
+```
+
+### 🔷 PARTIAL METHODS
+```
+🔹 What is a Partial Method?
+A partial method is declared in one part and optionally implemented in another part.
+
+Example
+partial class Sample
+{
+    partial void Log();
+}
+
+partial class Sample
+{
+    partial void Log()
+    {
+        Console.WriteLine("Log called");
+    }
+}
+
+🔑 Rules (VERY IMPORTANT)
+Must return void
+Must be private
+If not implemented → removed at compile time
+```
+
+### 🔷 LINQ TO OBJECTS
+```
+🔹 What is LINQ?
+LINQ (Language Integrated Query) allows querying collections using SQL-like syntax.
+LINQ to Objects
+Works with in-memory collections
+
+Examples: List<T>, Array, Dictionary
+
+🔷 WRITING LINQ QUERIES
+🔹 Query Syntax
+int[] nums = {1,2,3,4,5};
+
+var even = from n in nums
+           where n % 2 == 0
+           select n;
+
+🔹 Method Syntax
+var even = nums.Where(n => n % 2 == 0);
+
+🔑 Exam Rule
+Both syntaxes compile to same IL code
+
+🔷 DEFERRED EXECUTION
+🔹 What is Deferred Execution?
+
+LINQ queries are not executed immediately.
+They execute only when iterated.
+
+Example
+var query = nums.Where(n => n > 2);
+// No execution here
+
+foreach (var n in query)
+{
+    Console.WriteLine(n); // execution happens here
+}
+
+🔑 Exam Line
+LINQ uses lazy (deferred) execution
+
+🔷 LINQ METHODS (IMPORTANT)
+🔹 Filtering
+Where()
+
+🔹 Projection
+Select()
+
+🔹 Sorting
+OrderBy()
+OrderByDescending()
+
+🔹 Aggregation
+Count()
+Sum()
+Max()
+Min()
+Average()
+
+🔹 Element
+First()
+FirstOrDefault()
+Single()
+SingleOrDefault()
+
+
+🔷 PLINQ (PARALLEL LINQ)
+🔹 What is PLINQ?
+PLINQ allows LINQ queries to run in parallel using multiple cores.
+
+Example
+var result = nums.AsParallel()
+                 .Where(n => n % 2 == 0)
+                 .ToList();
+
+🔑 Exam Points
+Uses AsParallel()
+Improves performance for large datasets
+Order is not guaranteed unless specified
+```
+
+```
+🔑 QUICK EXAM SUMMARY
+Anonymous types → no class, read-only
+Extension methods → add methods externally
+Partial class → class split across files
+Partial method → optional, void, private
+LINQ to Objects → in-memory collections
+Deferred execution → executed on iteration
+LINQ methods → Where, Select, OrderBy
+PLINQ → parallel execution
+```
