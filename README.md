@@ -672,3 +672,5 @@ Clear scope
 | Memory        | One copy         | Multiple copies |
 | Access        | ClassName.Member | Object.Member   |
 | Object needed |  No              |  Yes            |
+
+<hr>
