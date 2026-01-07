@@ -1838,4 +1838,5 @@ Predicate → bool return
 Anonymous method → unnamed method
 Lambda → concise anonymous method
 Lambdas heavily used in LINQ
+Lambdas are based on delegates ✅
 ```
