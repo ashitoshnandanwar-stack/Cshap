@@ -1691,3 +1691,151 @@ Tuples → return multiple values
 ```
 
 <hr>
+
+## 🔷 DELEGATES IN C#
+```
+🔹 What is a Delegate?
+A delegate is a type-safe function pointer.
+It holds a reference to a method and allows methods to be passed as parameters.
+
+🔑 In simple words
+A delegate decides which method to call at runtime.
+
+🔹 Delegate Declaration & Use
+Step 1: Declare delegate
+delegate int Operation(int a, int b);
+
+Step 2: Create methods
+static int Add(int x, int y) => x + y;
+static int Sub(int x, int y) => x - y;
+
+Step 3: Use delegate
+Operation op = Add;
+Console.WriteLine(op(10, 5)); // 15
+
+op = Sub;
+Console.WriteLine(op(10, 5)); // 5
+```
+
+### 🔷 CALLING METHODS USING DELEGATES
+```
+Delegates invoke methods indirectly.
+
+Operation op = Add;
+int result = op.Invoke(3, 4);
+
+✔ Invoke() is optional
+✔ op(3,4) is preferred
+```
+
+### 🔷 USES OF DELEGATES (VERY IMPORTANT)
+```
+Delegates are used for:
+Callback methods
+Event handling
+Loose coupling
+Strategy pattern
+LINQ and lambda expressions
+```
+
+### 🔹 What is Multicast Delegate?
+```
+A delegate that holds multiple method references.
+Example
+delegate void Notify();
+
+static void Msg1() => Console.WriteLine("Msg1");
+static void Msg2() => Console.WriteLine("Msg2");
+
+Notify n = Msg1;
+n += Msg2;
+n();
+
+Output
+Msg1
+Msg2
+
+🔑 Exam Rules
+Uses + or +=
+Return value → last method’s value
+Mostly used with void return type
+```
+
+### 🔷 BUILT-IN DELEGATES
+```
+🔹 Action Delegate
+Returns void
+Can take 0–16 parameters
+
+Action<int> print = x => Console.WriteLine(x);
+print(10);
+
+🔹 Func Delegate
+Returns a value
+Last type is return type
+
+Func<int, int, int> add = (a, b) => a + b;
+Console.WriteLine(add(2, 3));
+
+🔹 Predicate Delegate
+Takes one parameter
+Returns bool
+
+Predicate<int> isEven = x => x % 2 == 0;
+Console.WriteLine(isEven(4)); // true
+```
+
+### 🔷 ANONYMOUS METHODS
+```
+🔹 What is an Anonymous Method?
+A method without a name, defined inline, using delegate keyword.
+
+Example
+Operation op = delegate (int a, int b)
+{
+    return a + b;
+};
+Console.WriteLine(op(3, 4));
+
+🔑 Exam Point
+Introduced before lambdas
+Less readable than lambdas
+```
+
+### 🔷 LAMBDA EXPRESSIONS
+```
+🔹 What is Lambda?
+A shorter syntax for anonymous methods using => (lambda operator).
+
+Basic Syntax
+(parameters) => expression
+
+Example
+Operation op = (a, b) => a + b;
+Console.WriteLine(op(5, 6));
+
+Lambda with Action
+Action<string> greet = name => Console.WriteLine("Hello " + name);
+
+Lambda with Func
+Func<int, int> square = x => x * x;
+```
+
+| Feature        | Anonymous Method | Lambda |
+| -------------- | ---------------- | ------ |
+| Syntax         | `delegate { }`   | `=>`   |
+| Readability    | Less             | More   |
+| Type inference | Limited          | Strong |
+| LINQ usage     | Rare             | Common |
+
+```
+🔑 QUICK EXAM SUMMARY
+Delegate → method reference
+Multicast delegate → multiple methods
+Action → void return
+Func → value return
+Predicate → bool return
+Anonymous method → unnamed method
+Lambda → concise anonymous method
+Lambdas heavily used in LINQ
+```
