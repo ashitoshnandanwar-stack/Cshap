@@ -26,6 +26,8 @@ To examine the assembly manifest (name, version, references)
 For debugging, learning, and security analysis
 
 ```
+<hr>
+
 ## 🔷 METHODS IN C#
 
 ```
@@ -325,4 +327,68 @@ Console.WriteLine(s.Marks);  // ✅ Access through getter
         │
     Outside world can only use these methods
     Cannot directly touch the marks variable
+```
+<hr>
+
+## 🔷 CONSTRUCTORS (C#)
+🔹 What is a Constructor?
+- A constructor is a special method that:
+- Has the same name as the class
+- Has no return type
+- Is called automatically when an object is created
+- Used to initialize data members
+
+### 🔹 Types of Constructors
+
+```
+1️⃣ Default Constructor
+Eg.
+class Student
+{
+    public Student()
+    {
+        Console.WriteLine("Constructor called");
+    }
+}
+
+✔ Called when object is created
+✔ If no constructor is written, C# provides a default constructor
+```
+
+```
+2️⃣ Parameterized Constructor
+Eg.
+class Student
+{
+    int id;
+
+    public Student(int i)
+    {
+        id = i;
+    }
+}
+
+✔ Used to initialize object with values
+```
+```
+3️⃣ Static Constructor
+Eg.
+class Demo
+{
+    static Demo()
+    {
+        Console.WriteLine("Static constructor");
+    }
+}
+
+✔ Called only once
+✔ Used to initialize static data
+✔ No access modifiers allowed
+✔ Cannot take parameters
+```
+```
+🔑 Exam Points
+Constructor has no return type
+Can be overloaded
+Cannot be virtual or abstract
 ```
