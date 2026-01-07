@@ -674,6 +674,7 @@ Clear scope
 | Object needed |  No              |  Yes            |
 
 <hr>
+
 ## 🔷 INHERITANCE IN C#
 
 ```
@@ -698,3 +699,207 @@ Supports runtime polymorphism
 | `private`            | ✔          | ❌             | ❌                 |
 | `protected internal` | ✔          | ✔              | ✔                  |
 ```
+```
+🔹 CONSTRUCTORS IN AN INHERITANCE HIERARCHY
+🔹 Rule
+Base class constructor is executed FIRST
+Then derived class constructor
+
+🔹 Example
+class A
+{
+    public A()
+    {
+        Console.WriteLine("Base");
+    }
+}
+
+class B : A
+{
+    public B()
+    {
+        Console.WriteLine("Derived");
+    }
+}
+
+Output
+Base
+Derived
+
+🔑 Important Rule
+
+Constructor execution order: Base → Derived
+```
+```
+🔹 OVERLOADING IN DERIVED CLASS
+🔹 Definition
+Derived class can have methods with same name but different parameters.
+
+🔹 Example
+class Base
+{
+    public void Show(int x) { }
+}
+
+class Derived : Base
+{
+    public void Show(int x, int y) { }
+}
+
+
+✔ This is method overloading, NOT overriding.
+```
+
+```
+🔹 METHOD HIDING (new KEYWORD)
+🔹 Definition
+When derived class defines a method with same signature as base class without override, it hides the base method.
+
+🔹 Example
+class Base
+{
+    public void Display()
+    {
+        Console.WriteLine("Base");
+    }
+}
+
+class Derived : Base
+{
+    public new void Display()
+    {
+        Console.WriteLine("Derived");
+    }
+}
+
+🔹 Method Call
+Base b = new Derived();
+b.Display();     // Base
+
+Derived d = new Derived();
+d.Display();     // Derived
+
+🔑 Exam Rule
+
+Method hiding is compile-time binding
+```
+```
+🔹 METHOD OVERRIDING (override)
+🔹 Definition
+Overriding means redefining a base class method in derived class using override.
+
+🔹 Rules
+Base method must be marked virtual
+Derived method must use override
+Same signature required
+
+🔹 Example
+class Base
+{
+    public virtual void Show()
+    {
+        Console.WriteLine("Base");
+    }
+}
+
+class Derived : Base
+{
+    public override void Show()
+    {
+        Console.WriteLine("Derived");
+    }
+}
+
+🔹 Method Call
+Base b = new Derived();
+b.Show();   // Derived
+
+🔑 Exam Rule
+
+Overriding supports runtime polymorphism
+```
+
+```
+🔹 SEALED METHODS
+🔹 Definition
+A sealed method:
+Cannot be overridden further
+Used to stop further overriding
+
+🔹 Example
+class A
+{
+    public virtual void Show() { }
+}
+
+class B : A
+{
+    public sealed override void Show() { }
+}
+
+class C : B
+{
+    // public override void Show() ❌ ERROR
+}
+
+🔑 Exam Rule
+sealed is used with override
+```
+
+```
+ABSTRACT CLASSES
+🔹 Definition
+An abstract class:
+Cannot be instantiated
+Can contain abstract + non-abstract methods
+
+🔹 Example
+abstract class Shape
+{
+    public abstract void Draw();
+
+    public void Info()
+    {
+        Console.WriteLine("Shape");
+    }
+}
+```
+
+```
+🔹 ABSTRACT METHODS
+🔹 Definition
+Abstract method:
+Has no body
+Must be overridden in derived class
+
+🔹 Example
+class Circle : Shape
+{
+    public override void Draw()
+    {
+        Console.WriteLine("Circle");
+    }
+}
+
+🔑 Exam Rule
+
+Derived class must override all abstract methods
+```
+
+```
+🔹 SEALED CLASSES
+🔹 Definition
+A sealed class:
+Cannot be inherited
+
+🔹 Example
+sealed class Security { }
+
+// class Test : Security ❌ ERROR
+```
+
+| Feature      | Overloading  | Overriding         | Hiding       |
+| ------------ | ------------ | ------------------ | ------------ |
+| Polymorphism | Compile-time | Runtime            | Compile-time |
+| Keywords     | None         | virtual + override | new          |
+| Signature    | Different    | Same               | Same         |
