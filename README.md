@@ -1455,6 +1455,7 @@ string? → nullable reference type
 ??= → assign if null
 Jagged ≠ Multidimensional
 Indexers → object behaves like array
+Rank = number of dimensions
 ```
 
 <hr>
