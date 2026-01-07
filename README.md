@@ -1154,3 +1154,310 @@ Cannot overload new operators
 | Access modifier      | Public only |  Any           |
 
 <hr>
+
+## 🔷 REFERENCE TYPES vs VALUE TYPES (C#)
+
+```
+🔹 Value Types
+Store actual data
+Stored in stack (mostly)
+Copying creates a new independent copy
+Changes do not affect original
+
+Examples : 
+int, float, double, char, bool
+struct
+enum
+
+int a = 10;
+int b = a;
+b = 20;
+// a = 10, b = 20
+```
+
+```
+🔹 Reference Types
+Store reference (address) of data
+Stored in heap
+Copying copies reference
+Changes affect same object
+
+Examples : class, array, string, object, interface
+
+int[] x = {1,2};
+int[] y = x;
+y[0] = 99;
+// x[0] = 99
+```
+
+### 🔷 STRUCT (Value Type)
+```
+🔹 What is struct?
+User-defined value type
+Cannot inherit other classes
+Can implement interfaces
+Faster and memory-efficient
+
+Example
+struct Point
+{
+    public int X;
+    public int Y;
+}
+
+Point p1;
+p1.X = 10;
+
+🔑 Exam Rules
+Struct cannot have destructor
+Struct cannot inherit class
+Struct supports value semantics
+```
+
+### 🔷 ENUM (Value Type)
+```
+🔹 What is enum?
+Set of named constants
+Underlying type is int by default
+
+Example
+enum Day
+{
+    Monday, Tuesday, Wednesday
+}
+
+Day d = Day.Monday;
+
+Custom Values
+enum Status
+{
+    Success = 1,
+    Failure = 0
+}
+```
+
+### 🔷 ref and out KEYWORDS
+```
+🔹 ref
+Variable must be initialized
+Allows method to modify original variable
+
+void Change(ref int x)
+{
+    x = 100;
+}
+int a = 10;
+Change(ref a);
+// a = 100
+
+
+🔹 out
+Variable need NOT be initialized
+Method must assign value
+void GetValue(out int x)
+{
+    x = 50;
+}
+
+int a;
+GetValue(out a);
+// a = 50
+
+| Feature                     | ref | out |
+| --------------------------- | --- | --- |
+| Must initialize before call | Yes | No  |
+| Must assign inside method   | No  | Yes |
+
+```
+
+### 🔷 NULLABLE VALUE TYPES
+```
+🔹 Problem
+Value types cannot store null.
+int x = null; // ❌ Error
+
+🔹 Solution: Nullable Value Types
+int? x = null;
+
+Equivalent:
+Nullable<int> x = null;
+
+Properties
+x.HasValue
+x.Value
+```
+
+### 🔷 NULLABLE REFERENCE TYPES (C# 8.0+)
+```
+🔹 Purpose
+Avoid NullReferenceException.
+
+Example
+string? name = null;  // nullable reference
+string city = "Pune"; // non-nullable
+
+city = null; // ❌ warning
+
+Enable Feature
+#nullable enable
+```
+
+### 🔷 NULL-COALESCING OPERATORS (?? and ??=)
+```
+🔹 ?? Operator
+Returns right value if left is null.
+
+string name = null;
+string result = name ?? "Guest";
+// result = "Guest"
+
+🔹 ??= Operator
+Assigns value only if left is null.
+
+string name = null;
+name ??= "Admin";
+// name = "Admin"
+
+```
+
+### 🔷 WORKING WITH ARRAYS
+```
+🔹 Single-Dimensional Array
+int[] a = {1,2,3};
+
+🔹 Multidimensional Array (Rectangular)
+int[,] m = {
+    {1,2},
+    {3,4}
+};
+Access:
+m[1,0]; // 3
+```
+```
+🔹 Jagged Array (Array of Arrays) in C#
+👉 What is a Jagged Array?
+A Jagged Array is an array of arrays, where:
+Each row is a separate array
+Rows can have different lengths
+
+📌 Unlike a 2D array (matrix), rows are not equal in size.
+
+🔹 Declaration
+dataType[][] arrayName;
+
+
+Example:
+int[][] numbers;
+
+🔹 Initialization
+1️⃣ Step-by-step Initialization
+int[][] arr = new int[3][];
+
+arr[0] = new int[] { 1, 2 };
+arr[1] = new int[] { 3, 4, 5 };
+arr[2] = new int[] { 6, 7, 8, 9 };
+
+✔ Each row has different size
+
+
+2️⃣ Direct Initialization
+int[][] arr =
+{
+    new int[] { 1, 2 },
+    new int[] { 3, 4, 5 },
+    new int[] { 6, 7, 8, 9 }
+};
+
+🔹 Accessing Elements
+Console.WriteLine(arr[2][1]);
+Output : 7
+
+📌 First index → row
+📌 Second index → column inside that row
+
+Example program :
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[][] marks =
+        {
+            new int[] { 80, 85 },
+            new int[] { 70, 75, 78 },
+            new int[] { 90, 92, 95, 98 }
+        };
+
+        for (int i = 0; i < marks.Length; i++)
+        {
+            Console.Write("Student " + (i + 1) + ": ");
+            for (int j = 0; j < marks[i].Length; j++)
+            {
+                Console.Write(marks[i][j] + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+```
+| Feature     | Jagged Array    | 2D Array |
+| ----------- | --------------- | -------- |
+| Structure   | Array of arrays | Matrix   |
+| Row size    | Different       | Same     |
+| Memory      | Efficient       | Fixed    |
+| Declaration | `int[][]`       | `int[,]` |
+
+
+### 🔷 INDICES AND RANGES (C# 8.0+)
+```
+🔹 Index (^)
+Counts from end.
+
+int[] a = {10,20,30,40};
+Console.WriteLine(a[^1]); // 40
+
+🔹 Range (..)
+Selects a slice.
+var part = a[1..3]; // {20,30}
+
+🔷 INDEXERS
+🔹 What is an Indexer?
+Allows object to be accessed like an array.
+
+Example
+class Data
+{
+    int[] arr = new int[5];
+
+    public int this[int index]
+    {
+        get { return arr[index]; }
+        set { arr[index] = value; }
+    }
+}
+
+Usage:
+Data d = new Data();
+d[0] = 100;
+Console.WriteLine(d[0]);
+```
+```
+🔑 QUICK EXAM SUMMARY
+Value types → stack, copy by value
+Reference types → heap, copy by reference
+struct, enum → value types
+ref → initialized before call
+out → initialized inside method
+int? → nullable value type
+string? → nullable reference type
+?? → default if null
+??= → assign if null
+Jagged ≠ Multidimensional
+Indexers → object behaves like array
+```
+
+<hr>
+
+
+
