@@ -866,7 +866,7 @@ abstract class Shape
 ```
 
 ```
-🔹 ABSTRACT METHODS
+ ABSTRACT METHODS
 🔹 Definition
 Abstract method:
 Has no body
@@ -887,7 +887,7 @@ Derived class must override all abstract methods
 ```
 
 ```
-🔹 SEALED CLASSES
+ SEALED CLASSES
 🔹 Definition
 A sealed class:
 Cannot be inherited
