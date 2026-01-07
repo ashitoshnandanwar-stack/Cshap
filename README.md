@@ -306,7 +306,6 @@ Console.WriteLine(s.Marks);  // ✅ Access through getter
 // s.marks = 85;  // ❌ ERROR! Cannot access directly
 ```
 
----
 ```
 ## Simple Visual Understanding 🎯
 
