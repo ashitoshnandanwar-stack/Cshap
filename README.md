@@ -994,7 +994,7 @@ class LaserPrinter : IPrinter
 Used when:
 Two interfaces have same method name
 You want to hide interface method from class object
-
+Avoid method name conflicts ✅
 🔹 Example
 interface IA
 {
@@ -1098,6 +1098,11 @@ class AppLogger : ILogger
 🔑 Exam Trap
 Default methods cannot access instance fields
 Called using interface reference
+Default methods allow adding new methods to interfaces without breaking existing classes.
+Default interface methods → Backward compatibility
+
+
+
 
 ```
 
@@ -1110,7 +1115,7 @@ Operator overloading allows custom behavior for operators (+, -, ==, etc.) for u
 Only operators can be overloaded
 At least one operand must be user-defined
 Cannot overload . ?: sizeof
-
+Operator overloading supports: Compile-time polymorphism ✅
 🔹 Syntax
 class Point
 {
