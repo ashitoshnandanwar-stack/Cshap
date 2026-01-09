@@ -265,8 +265,14 @@ foreach (DataRow row in dt.Rows)
 | Use Case       | Live data     | Web apps     |
 
 
-
-
+| Component      | Use                          |
+| -------------- | ---------------------------- |
+| SqlConnection  | Connect application to DB    |
+| SqlCommand     | Execute SQL statements       |
+| SqlDataReader  | Fast, connected data reading |
+| SqlDataAdapter | Bridge between DB & DataSet  |
+| DataSet        | Offline, in-memory database  |
+| DataTable      | Single table in memory       |
 
 
 
