@@ -783,3 +783,197 @@ Step-by-step:
 
 <hr>
 
+## Layouts, Bundle, Minification
+
+### 1️⃣ Creating Layout and Using with Views
+- A Layout is a master page (common structure) for all views.
+
+<img width="800" height="1200" alt="image" src="https://github.com/user-attachments/assets/8eac0cde-b80b-4152-9826-facbe7e95c77" />
+
+- In this image header and footer are common in every page.
+
+```
+Create:
+_Layout.cshtml
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header>My Site</header>
+    <div>
+        @RenderBody()
+    </div>
+    <footer>© 2026</footer>
+</body>
+</html>
+
+
+Use it in a view:
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Home Page</h2>
+```
+- All views now share the same header/footer.
+
+*2️⃣ Bundling & Minification*
+- Bundling → Combine multiple CSS/JS files into one
+- Minification → Remove spaces, comments, reduce size
+- Benefits:
+Faster page load <br>
+Fewer HTTP requests <br>
+Better performance <br>
+
+*3️⃣ Using BundleConfig File*
+```
+using System.Web.Optimization;
+public class BundleConfig
+{
+    public static void RegisterBundles(BundleCollection bundles)
+    {
+        bundles.Add(new ScriptBundle("~/bundles/js")
+            .Include("~/Scripts/jquery.js",
+                     "~/Scripts/app.js"));
+
+        bundles.Add(new StyleBundle("~/bundles/css")
+            .Include("~/Content/site.css",
+                     "~/Content/bootstrap.css"));
+    }
+}
+
+In _Layout.cshtml:
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/js")
+```
+- Bundling in ASP.NET MVC is implemented using classes from the  " System.Web.Optimization " namespace"
+- Main classes and objects used are:
+| Purpose           | Class Used           |
+| ----------------- | -------------------- |
+| Hold all bundles  | `BundleCollection`   |
+| Create JS bundle  | `ScriptBundle`       |
+| Create CSS bundle | `StyleBundle`        |
+| Register bundles  | `BundleConfig` class |
+
+
+*4️⃣ Attaching CSS, JS, Bootstrap in Bundles*
+```
+bundles.Add(new StyleBundle("~/Content/css")
+    .Include("~/Content/bootstrap.css",
+             "~/Content/site.css"));
+
+bundles.Add(new ScriptBundle("~/bundles/scripts")
+    .Include("~/Scripts/jquery.js",
+             "~/Scripts/bootstrap.js"));
+```
+- This loads all CSS/JS in optimized form.
+
+*5️⃣ Custom Helper Function*
+- A Custom Helper Function in ASP.NET MVC is a user-defined helper used in Views to generate reusable HTML code.
+- It is mainly created to: Reduce repeated HTML, Make Views clean and readable, Reuse UI logic (buttons, labels, messages, etc.)
+```
+MVC already has helpers like:
+@Html.TextBox("Name")
+@Html.Label("Name")
+```
+- You can create your own helper in the same way.
+```
+Create a Custom HTML Helper
+Create a static class in your project (e.g., Helpers/MyHelper.cs):
+
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+public static class MyHelper
+{
+    public static IHtmlContent MyButton(this IHtmlHelper html, string text)
+    {
+        return new HtmlString($"<button class='btn btn-primary'>{text}</button>");
+    }
+}
+```
+
+- This method: Is static, Uses this IHtmlHelper (extension method), Returns HTML
+
+Use in View
+```
+In your .cshtml file:
+
+@using YourProjectName.Helpers
+@Html.MyButton("Save")
+
+Output:
+<button class='btn btn-primary'>Save</button>
+```
+
+So, Custom Helper Function =
+A user-defined method that generates HTML and can be reused in Views like built-in Html helpers.
+
+*6️⃣ Asynchronous Actions*
+- Used for non-blocking operations (DB/API calls).
+```
+public async Task<IActionResult> Index()
+{
+    await Task.Delay(2000);
+    return View();
+}
+
+Benefits: Better scalability, Faster response under load
+```
+
+*7️⃣ Error Handling with Log Entry*
+```
+public IActionResult Save()
+{
+    try
+    {
+        // risky code
+    }
+    catch (Exception ex)
+    {
+        System.IO.File.AppendAllText("log.txt", ex.Message);
+        return View("Error");
+    }
+}
+```
+- Or use CustomErrors / ExceptionFilter globally.
+
+*8️⃣ Filters & Custom Action Filter*
+- Filters run before/after actions.
+- Types: <br>
+Authorization  <br>
+Action  <br>
+Result  <br>
+Exception  <br>
+
+- Custom Action Filter:
+```
+public class LogFilter : ActionFilterAttribute
+{
+    public override void OnActionExecuting(ActionExecutingContext context)
+    {
+        System.IO.File.AppendAllText("log.txt", "Action Called\n");
+    }
+}
+```
+
+Apply:
+```
+[LogFilter]
+public IActionResult Index()
+{
+    return View();
+}
+```
+
+These features make your MVC app: <br>
+Consistent (Layout) <br>
+Fast (Bundle/Minify) <br>
+Reusable (Helpers) <br>
+Scalable (Async) <br>
+Safe (Error Handling) <br>
+Powerful (Filters) <br>
