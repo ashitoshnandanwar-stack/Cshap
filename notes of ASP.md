@@ -274,8 +274,32 @@ foreach (DataRow row in dt.Rows)
 | DataSet        | Offline, in-memory database  |
 | DataTable      | Single table in memory       |
 
+<hr><hr><hr>
 
+## 1️⃣ Understanding Controllers and Actions
 
+- A Controller is a C# class that handles user requests.
+- An Action is a public method inside a controller.
+- Every request from browser is mapped to a Controller → Action.
+
+Eg.
+```
+public class HomeController : Controller
+{
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    public IActionResult About()
+    {
+        return Content("About Page");
+    }
+}
+```
+*Here:*
+- HomeController → Controller
+- Index() and About() → Actions
 
 
 
