@@ -396,6 +396,7 @@ So Application (Global) is for data and events that belong to the whole website,
 ### 🔹 Client-Side State Management
 - Client-side state management means storing and managing data on the user’s browser (client) instead of the server.
 - This data remains available while the user is interacting with the web page or site.
+
 | Technique       | Stored On      | Use                |
 | --------------- | -------------- | ------------------ |
 | **Cookies**     | Client browser | Store small data   |
@@ -447,3 +448,338 @@ Summary Line:
 ViewBag / TempData / Session / Application → Server-side
 Cookies / QueryString → Client-side
 ```
+
+<hr>
+## MVC Module 
+
+### 🔹 Partial View
+- A Partial View is a reusable piece of UI (view) that can be embedded inside another view.
+*Use cases:*
+- Header, Footer
+- Menu, Sidebar
+- Login panel, Cart summary
+```
+Create a partial view:
+File name starts with _ (convention)
+_StudentInfo.cshtml
+
+<h3>Student Panel</h3>
+<p>Name: @ViewBag.Name</p>
+
+Use it inside another view:
+@Html.Partial("_StudentInfo")
+or
+<partial name="_StudentInfo" />
+```
+*Benefits:*
+- Reusability
+- Clean layout
+- Easy maintenance
+
+### 🔹 Action Method and Child Action
+- An Action Method is a public method in a controller that responds to a request.
+```
+public class HomeController : Controller
+{
+    public IActionResult Index()
+    {
+        return View();
+    }
+}
+
+URL: /Home/Index
+```
+*Child Action*
+- A Child Action is an action that is not called directly by URL, but is invoked from a view.
+```
+public class HomeController : Controller
+{
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    [NonAction]
+    public IActionResult Menu()
+    {
+        return PartialView("_Menu");
+    }
+}
+
+In View: @Html.Action("Menu", "Home")
+```
+*Purpose:*
+- Load dynamic content inside a view
+- Combine Controller logic + Partial View
+```
+So:
+Concept	Meaning
+Partial View	Reusable UI block
+Action Method	Handles URL request
+Child Action	Action called from a View (not via URL)
+
+Together, they help build modular and dynamic MVC pages.
+```
+
+<hr>
+
+### Data Management with ADO.NET 
+- ADO.NET is used in MVC (and all .NET apps) to connect, read, write, and manage data from databases like SQL Server.
+
+*1️⃣ Microsoft.Data.SqlClient – Introduction*
+- Microsoft.Data.SqlClient is the modern provider for SQL Server in .NET.
+- It provides classes like: SqlConnection, SqlCommand, SqlDataReader, SqlDataAdapter
+- Install via NuGet: Microsoft.Data.SqlClient
+- Use namespace: using Microsoft.Data.SqlClient;
+
+- These four classes belong to ADO.NET and are used to communicate with a SQL Server database : SqlConnection, SqlCommand, SqlDataReader, SqlDataAdapter
+```
+Application → SqlConnection → SqlCommand → (SqlDataReader / SqlDataAdapter) → Database
+
+1. SqlConnection
+Used to connect your application to the database.
+
+SqlConnection con = new SqlConnection(
+    "server=.;database=SchoolDB;trusted_connection=true");
+con.Open();
+
+Holds connection string
+Opens and closes the DB connection
+Without this, no DB operation is possible
+
+2. SqlCommand
+Used to execute SQL queries (INSERT, UPDATE, DELETE, SELECT).
+
+SqlCommand cmd = new SqlCommand(
+    "select * from Student", con);
+
+Can execute:
+ExecuteNonQuery() → INSERT, UPDATE, DELETE
+ExecuteScalar() → Single value //return for select
+ExecuteReader() → Read records //retrun for all
+
+Example (Insert):
+SqlCommand cmd = new SqlCommand(
+    "insert into Student values('Amit',20)", con);
+cmd.ExecuteNonQuery();
+
+3️. SqlDataReader
+Used to read data row by row (forward only, read-only).
+
+SqlCommand cmd = new SqlCommand("select * from Student", con);
+SqlDataReader dr = cmd.ExecuteReader();
+while (dr.Read())
+{
+    Console.WriteLine(dr["Name"]);
+}
+
+Fast
+Connected mode
+Forward only
+
+4️.  SqlDataAdapter
+Used to fill DataSet/DataTable (disconnected mode).
+
+SqlDataAdapter da = new SqlDataAdapter(
+    "select * from Student", con);
+DataTable dt = new DataTable();
+da.Fill(dt);
+
+Works in disconnected mode
+Stores data in memory
+Good for binding with GridView, DataGrid, etc.
+```
+
+*2️⃣ Core ADO.NET Objects*
+🔹 Connection Object
+```
+Used to open a connection with database.
+SqlConnection con = new SqlConnection(
+    "Server=.;Database=TestDB;Trusted_Connection=True");
+con.Open();
+```
+🔹 Command Object
+```
+Used to execute SQL queries.
+SqlCommand cmd = new SqlCommand("select * from Student", con);
+```
+🔹 DataReader (Forward-only, Read-only)
+```
+SqlDataReader dr = cmd.ExecuteReader();
+while (dr.Read())
+{
+    Console.WriteLine(dr["Name"]);
+}
+
+Fast
+Connected mode
+One record at a time
+```
+🔹 DataAdapter
+```
+Acts as a bridge between DB and DataSet.
+SqlDataAdapter da = new SqlDataAdapter("select * from Student", con);
+```
+🔹 DataSet & DataTable (Disconnected Mode)
+```
+DataSet ds = new DataSet();
+da.Fill(ds);
+DataTable dt = ds.Tables[0];
+
+Stores data in memory
+Works even after connection is closed
+Used in Grid, Reports, etc.
+```
+
+### 3️⃣ Asynchronous Command Execution
+- Used to avoid blocking the application while DB work is running.
+```
+SqlCommand cmd = new SqlCommand("insert into Student values('Amit',20)", con);
+await cmd.ExecuteNonQueryAsync();
+
+Other async methods:
+ExecuteReaderAsync()
+ExecuteScalarAsync()
+
+Benefits:
+Better performance
+UI remains responsive
+Ideal for web apps
+```
+### 4️⃣ Asynchronous Connections
+```
+using (SqlConnection con = new SqlConnection(cs))
+{
+    await con.OpenAsync();
+
+    SqlCommand cmd = new SqlCommand("select * from Student", con);
+    SqlDataReader dr = await cmd.ExecuteReaderAsync();
+
+    while (await dr.ReadAsync())
+    {
+        Console.WriteLine(dr["Name"]);
+    }
+}
+```
+| Component     | Purpose             |
+| ------------- | ------------------- |
+| SqlConnection | Connect to DB       |
+| SqlCommand    | Execute SQL         |
+| DataReader    | Fast, forward read  |
+| DataAdapter   | Fill DataSet        |
+| DataSet       | In-memory DB        |
+| DataTable     | Table in DataSet    |
+| Async Methods | Non-blocking DB ops |
+
+<hr>
+
+## Understanding Routing & Request Life Cycle
+
+*1️⃣ Routing Engine & Routing Table*
+- Routing Engine: The component that examines the incoming URL and decides which Controller and Action should handle it.
+- Routing Table: A collection of URL patterns registered at application start.
+- Example URL: /Student/Details/5
+- Routing Engine matches it with a route and maps it to:
+```
+StudentController → Details(int id = 5)
+```
+So:
+- Routing Engine = Decision maker
+- Routing Table = Set of rules
+
+*2️⃣ Routing Pattern in RouteConfig*
+- In classic ASP.NET MVC:
+```
+routes.MapRoute(
+    name: "Default",
+    url: "{controller}/{action}/{id}",
+    defaults: new 
+    { 
+        controller = "Home", 
+        action = "Index", 
+        id = UrlParameter.Optional 
+    }
+);
+```
+- This pattern allows:
+```
+/Home/Index
+/Student/Create
+/Student/Edit/10
+```
+Meaning:
+- {controller} → Controller name
+- {action} → Action method
+- {id} → Optional parameter  <br>
+
+This builds the Routing Table used by the Routing Engine.
+
+*3️⃣ 404 Error – Resource Not Found*
+- A 404 error occurs when MVC cannot find a match for the URL: <br>
+No route matches the URL  <br>
+Controller does not exist  <br>
+Action method is missing  <br>
+```
+Example: /Home/Test
+If Test() does not exist in HomeController, MVC returns:
+404 – Not Found
+So, 404 = Routing failed to find a valid Controller/Action.
+```
+
+*4️⃣ Attribute Routing*
+- Routing is defined directly on Controllers or Actions.
+```
+[Route("student")]
+public class StudentController : Controller
+{
+    [Route("details/{id}")]
+    public IActionResult Details(int id)
+    {
+        return View();
+    }
+}
+
+URL becomes: /student/details/5
+
+Enable it in config: routes.MapMvcAttributeRoutes();
+
+
+Advantages:
+Clean and meaningful URLs
+Better control
+Easy to read and maintain
+```
+
+*5️⃣ Request Life Cycle in MVC*
+Flow of a request:
+```
+Browser
+   ↓
+Routing Engine
+   ↓
+Controller
+   ↓
+Action Method
+   ↓
+Model (Business/Data Logic)
+   ↓
+View
+   ↓
+HTML Response
+   ↓
+Browser
+```
+Step-by-step:
+1. User enters URL in browser
+2. Request reaches MVC framework
+3. Routing Engine checks Routing Table
+4. Finds Controller & Action
+5. Action executes logic
+6. Data is passed to View
+7. View generates HTML
+8. Response is sent back to browser
+
+- These topics help you clearly understand how MVC handles URLs and processes every request
+
+<hr>
+
