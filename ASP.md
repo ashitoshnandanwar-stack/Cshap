@@ -969,6 +969,13 @@ public IActionResult Index()
     return View();
 }
 ```
+| Filter Type   | When it Executes      | Purpose             |
+| ------------- | --------------------- | ------------------- |
+| Authorization | Before action         | Security check      |
+| Action        | Before & after action | Pre/Post processing |
+| Result        | Before & after result | Modify response     |
+| Exception     | When error occurs     | Error handling      |
+
 
 These features make your MVC app: <br>
 Consistent (Layout) <br>
