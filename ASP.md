@@ -450,6 +450,7 @@ Cookies / QueryString → Client-side
 ```
 
 <hr>
+
 ## MVC Module 
 
 ### 🔹 Partial View
@@ -852,6 +853,7 @@ In _Layout.cshtml:
 ```
 - Bundling in ASP.NET MVC is implemented using classes from the  " System.Web.Optimization " namespace"
 - Main classes and objects used are:
+
 | Purpose           | Class Used           |
 | ----------------- | -------------------- |
 | Hold all bundles  | `BundleCollection`   |
